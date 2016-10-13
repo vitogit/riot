@@ -18,7 +18,12 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "test": "make riot"
+    "test": "npm run eslint && npm run test-mocha && npm run test-karma",
+    "eslint": "eslint -c ./.eslintrc lib test",
+    "test-mocha": "cross-env RIOT=../../dist/riot/riot.js mocha -- test/specs/server",
+    "test-karma": "npm run test-karma-compiler && npm run test-karma-browser",
+    "test-karma-compiler": "cross-env TEST_FOLDER=compiler karma start test/karma.conf.js",
+    "test-karma-browser": "cross-env TEST_FOLDER=browser karma start test/karma.conf.js"
   },
   "keywords": [
     "custom tags",
@@ -57,6 +62,7 @@
     "chai": "^3.5.0",
     "cheerio": "^0.22.0",
     "coveralls": "^2.11.14",
+    "cross-env": "^3.1.2",
     "eslint": "^3.7.1",
     "glob": "^7.1.1",
     "istanbul": "^0.4.5",
